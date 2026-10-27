@@ -11,12 +11,21 @@ import cantools
 class CANDecoder:
     def __init__(self, dbc_path: Optional[str] = None):
         if dbc_path is None:
-            # Caminho padrão dentro do repositório Telemetria - V0
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            dbc_path = os.path.join(base_dir, "config", "bms_can_matrix.dbc")
+            # Buscar na raiz do repositório Telemetria ou dentro do pit_software
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            candidates = [
+                os.path.join(os.path.dirname(os.path.dirname(current_dir)), "config", "vehicle_can_matrix.dbc"),
+                os.path.join(os.path.dirname(os.path.dirname(current_dir)), "config", "bms_can_matrix.dbc"),
+                os.path.join(os.path.dirname(current_dir), "config", "vehicle_can_matrix.dbc"),
+                os.path.join(current_dir, "vehicle_can_matrix.dbc")
+            ]
+            for cand in candidates:
+                if os.path.isfile(cand):
+                    dbc_path = cand
+                    break
 
-        if not os.path.isfile(dbc_path):
-            raise FileNotFoundError(f"Arquivo DBC não encontrado: {dbc_path}")
+        if dbc_path is None or not os.path.isfile(dbc_path):
+            raise FileNotFoundError(f"Arquivo DBC não encontrado em nenhum dos locais esperados: {candidates}")
 
         self.dbc_path = dbc_path
         self.db = cantools.database.load_file(dbc_path)

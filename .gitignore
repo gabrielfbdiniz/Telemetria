@@ -1,3 +1,4 @@
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
@@ -5,7 +6,21 @@ __pycache__/
 .venv/
 env/
 venv/
+
+# IDEs
 .idea/
 .vscode/
+
+# PlatformIO & Embedded
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Logs e Telemetria Local
 logs/
 *.csv
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store

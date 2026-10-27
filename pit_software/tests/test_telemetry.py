@@ -13,7 +13,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from core.can_decoder import CANDecoder
 from core.telemetry_state import TelemetryState
-from core.virtual_battery import VirtualBatteryEmulator
+from simulator import VehicleSimulator as VirtualBatteryEmulator
 from io_interfaces.hm_trp_serial import FitaTelemProtocol, StreamParser, HMTRPConfigTool
 
 

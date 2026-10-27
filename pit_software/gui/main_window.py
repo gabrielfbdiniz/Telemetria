@@ -15,7 +15,7 @@ from PySide6.QtWidgets import (
 
 from core.can_decoder import CANDecoder
 from core.telemetry_state import TelemetryState
-from core.virtual_battery import VirtualBatteryEmulator
+from simulator import VehicleSimulator
 from io_interfaces.can_receiver import CANHardwareReceiver
 from io_interfaces.hm_trp_serial import HMTRPSerialReceiver, HMTRPSerialTransmitter
 
@@ -102,7 +102,7 @@ class MainWindow(QMainWindow):
         # 1. Componentes de Negócio e Conectividade
         self.decoder = CANDecoder()
         self.state = TelemetryState()
-        self.emulator = VirtualBatteryEmulator(self.decoder, self.state)
+        self.emulator = VehicleSimulator(self.decoder, self.state)
         self.can_receiver = CANHardwareReceiver(self.decoder, self.state)
         self.rf_receiver = HMTRPSerialReceiver(self.decoder, self.state)
         self.rf_transmitter = HMTRPSerialTransmitter()

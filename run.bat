@@ -1,29 +1,12 @@
 @echo off
-title Telemetria Formula ITA - V0
+title Telemetria Formula ITA - Pit Station
 cd /d "%~dp0"
 
-echo ==============================================================================
-echo        TELEMETRIA VEICULAR - FORMULA ITA (FORMULA SAE ELECTRIC)
-echo ==============================================================================
-echo.
-
-where python >nul 2>nul
-if %errorlevel% neq 0 (
-    echo [ERRO] Python nao encontrado no sistema!
-    echo Por favor, instale o Python 3.10 ou superior e marque a opcao "Add Python to PATH".
-    pause
-    exit /b 1
-)
-
-echo [1/2] Verificando dependencias essenciais...
-python -m pip install -r requirements.txt --quiet --disable-pip-version-check
-
-echo [2/2] Iniciando o Dashboard de Telemetria...
-echo.
-python main.py
-
-if %errorlevel% neq 0 (
+echo [FORMULA ITA] Iniciando Telemetria de Pista...
+python pit_software\main.py
+if %ERRORLEVEL% NEQ 0 (
     echo.
-    echo [AVISO] A aplicacao encerrou com codigo de erro %errorlevel%.
+    echo [ERRO] Ocorreu uma falha ao executar o software de pista.
+    echo Verifique se as dependencias foram instaladas via: pip install -r pit_software\requirements.txt
     pause
 )
